@@ -3,7 +3,7 @@
 * 元のデータは[こちら](https://gist.github.com/ntddk/f842cabe4298a2f988b9)より拝借
     - thanks to ntddk
 
-## HOW TO USE IT?
+## つかいかた
 1. `draft.tex`をいじる
 2. `make`
 3. `make clean`
