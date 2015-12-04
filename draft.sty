@@ -1,0 +1,87 @@
+%
+% From jarticle.sty 16-Mar-88
+% -------------------------------------------------------------------------
+
+% No page number
+\pagestyle{empty}
+
+% Page layout
+%
+%\paperwidth	210mm
+%\paperheight	297mm
+\textwidth       160.0mm
+\textheight      237.0mm
+\oddsidemargin    0mm
+\evensidemargin   0mm
+\topmargin        0mm
+\headheight       5.0mm
+\headsep          0.0mm
+\footskip         0.0mm
+\columnsep        6.0mm
+\parindent 1zw\relax
+
+% Two column
+\twocolumn
+\raggedbottom
+
+% List Environment
+\def\@listi{%
+	\leftmargin = 0.7cm
+	\labelsep = 0.2cm
+	\itemsep = 0.1cm}
+\let\@listI\@listi
+
+% 
+\def\maketitle{
+	\par
+	\begingroup
+	\def\thefootnote{\fnsymbol{footnote}}
+	\def\@makefnmark{\hbox to 0pt{$^{\@thefnmark}$\hss}}
+	\twocolumn[\@maketitle]\@thanks
+	\endgroup
+	\setcounter{footnote}{0}
+	\let\maketitle\relax
+	\let\@maketitle\relax
+	\gdef\@thanks{}\gdef\@author{}\gdef\@title{}\let\thanks\relax
+}
+%
+%%%%%  Format of Page 1 %%%%%
+%
+% Title
+%
+\def\@maketitle{
+  \newpage\null\vskip 1em%
+  \begin{center}%
+	\let\footnote\thanks
+% Japanese title
+	{\Large \bf \@title \par}
+	\vskip 1.5em
+ 	{\large \begin{tabular}[t]{c} \@author \end{tabular}\par}
+	\vskip 1.5em
+	{\unvbox\@abstractbox}
+	\vskip2em
+  \end{center}
+}
+
+
+\def\title#1{\gdef\@title{#1}}
+\def\@title#{\mkt\@warning\title}
+%
+% Japanese & English authors
+%
+\long\def\author#1{\long\gdef\@author{#1}}
+\def\@author{\mkt@warning\author}
+
+\def\abstractname{概要}
+
+\newbox\@abstractbox \global\setbox\@abstractbox\box\voidb@x
+
+\def\abstract{%
+   \global\setbox\@abstractbox\vbox\bgroup
+      \hsize\textwidth \@parboxrestore
+      {\bfseries \abstractname}  \parindent=1zw\relax}
+\def\endabstract{\egroup}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+
+% EOF
