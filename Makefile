@@ -1,10 +1,11 @@
-FILENAME = draft
+FILENAME = resume
+CC=platex
+DD=dvipdfmx
 
 ${FILENAME}.pdf: ${FILENAME}.dvi
-	dvipdfmx $<
-
+	$(DD) $<
 ${FILENAME}.dvi: ${FILENAME}.tex
-	platex $<
+	$(CC) $<
 
 clean:
 	rm -rf ${FILENAME}.aux ${FILENAME}.dvi ${FILENAME}.log
