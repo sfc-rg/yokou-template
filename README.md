@@ -6,4 +6,13 @@
 ## つかいかた
 1. `resume.tex`をいじる
 2. `make`
-3. `make clean`
+4. `make clean`
+
+## Macでの.styファイルの読み込み方
+TexShopを使っている諸兄のために.styファイルの読ませ方について指南する(デフォルトではこれでつまりコンパイルできない)
+TexShopが読み込むよう適切な位置に.styファイルを配置しよう
+```
+mkdir ~/Library/texmf/tex
+mv resume.sty ~/Library/texmf/tex
+```
+
