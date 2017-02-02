@@ -18,7 +18,8 @@ devDependency:
   - npm install --save-dev @alrra/travis-scripts
 
 script:
-  - make clean all
+  - make clean
+  - make
 
 after_success:
   - |
