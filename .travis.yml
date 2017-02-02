@@ -1,0 +1,37 @@
+os:
+- linux
+dist: trusty
+language: node_js
+node_js: stable
+addons:
+  apt:
+    packages:
+    - texlive
+    - texlive-lang-cjk
+    - dvipsk-ja
+    - xdvik-ja
+    - gv
+    - texlive-fonts-recommended
+    - texlive-fonts-extra
+
+devDependency:
+  - npm install --save-dev @alrra/travis-scripts
+
+script:
+  - make clean realclean all
+
+after_success:
+  - |
+
+        $(npm bin)/set-up-ssh --key "$ncrypted_1f38e5143912_key" \
+                             --iv "$encrypted_1f38e5143912_iv" \
+                             --path-encrypted-key ".travis/github_deploy_key.enc"
+
+        $(npm bin)/update-branch --commands "mkdir public; cp resume.pdf ./public/." \
+                                 --commit-message "Update website [skip ci]" \
+                                 --directory "./public" \
+                                 --distribution-branch "gh-pages" \
+                                 --source-branch "master"
+global:
+  env:
+    secure: "IIXHy9GBIj+Mv7mO4rAI0R/JRveN4GumdjSWgcyjqktnnrSUdGXavi9XQmgPgGidaTj+DxP9uubGHX0aCAjYZ7m2Ysyrs3KE2TwvI5W8uTKJu90jY+N0oIdFW9xwdLCrB39sCN0sEJlGOIM2Z851SX9Jqc0zlVYrA2kKiJVombKdV57S3wlku5LvRLBuNQTNyKdT0iZWeF7+hFc4MR09VTsrlGfGxayR5D7iLevekve6TFZsPmFTStP2QqmVccMLM5CLu/ZVb3mdKfvbXfQb59mmYRgJdQdJZxgje4AQQNrguS40s7wXvpRgsCM+dypHltpyhVPJSCNXg+PH8xJmMRTRMWuZwNHmvmQ0lbxYRsnlZrlsZ4xoaGjkcdFvgAXJ4mujMmZGTdKyCEkVh/YEQR2C2kI54EhUx/yeV7fmEBS1FNe0zFzzzkogXVMd/At4sDCNe6bZLEfIPGDQHlIilY3md1y0S3llFdh7oJyaiL0AIYJ8bXEW4R2YlTzL1yjovDkhvlCzhjZ3OH8TfPig0IVyt/cTF3wKMeItZOgqnfhFo4r+zRCs8evUEbxVCSYe8VYsXhtn2fXyuOYZvbsaWzPCpPhqGXQx5S6Sb4IZNsiPsofSkXnLDwxWO6mcrG+UZU8BFM04UcqyoYHvkQj9FAM+8B41ghofbzkvWedJ2Lg="
