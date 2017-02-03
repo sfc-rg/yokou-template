@@ -9,8 +9,6 @@ before_install:
   - sudo add-apt-repository -y ppa:jonathonf/texlive-2016
   - sudo apt-get update
   - sudo apt-get install texlive texlive-lang-cjk dvipsk-ja xdvik-ja gv texlive-fonts-recommended texlive-fonts-extra
-
-devDependency:
   - npm install --save-dev @alrra/travis-scripts
 
 script:
