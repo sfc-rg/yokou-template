@@ -1,8 +1,6 @@
 os:
   - linux
 dist: trusty
-language: node_js
-node_js: stable
 sudo: false
 
 addons:
