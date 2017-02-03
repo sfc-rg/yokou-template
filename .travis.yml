@@ -21,7 +21,7 @@ addons:
 cache:
   apt: true
 
-before_install:
+devDependency:
   - npm install --save-dev @alrra/travis-scripts
 
 script:
