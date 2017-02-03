@@ -5,15 +5,28 @@ language: node_js
 node_js: stable
 sudo: required
 
+addons:
+  apt:
+    sources:
+      - sourceline: 'ppa:jonathonf/texlive-2016'
+    packages:
+      - texlive
+      - texlive-lang-cjk
+      - dvipsk-ja
+      - xdvik-ja
+      - gv
+      - texlive-fonts-recommended
+      - texlive-fonts-extra
+
 cache:
   apt: true
   directories:
     - node_modules
 
 before_install:
-  - sudo add-apt-repository -y ppa:jonathonf/texlive-2016
-  - sudo apt-get update
-  - sudo apt-get install texlive texlive-lang-cjk dvipsk-ja xdvik-ja gv texlive-fonts-recommended texlive-fonts-extra
+  # - sudo add-apt-repository -y ppa:jonathonf/texlive-2016
+  # - sudo apt-get update
+  # - sudo apt-get install texlive texlive-lang-cjk dvipsk-ja xdvik-ja gv texlive-fonts-recommended texlive-fonts-extra
   - npm install --save-dev @alrra/travis-scripts
 
 script:
