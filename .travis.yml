@@ -28,16 +28,16 @@ deploy:
   - openssl aes-256-cbc -K "$encrypted_1f38e5143912_key" -iv "$encrypted_1f38e5143912_iv" -in .travis/github_deploy_key.enc -d -out github_deploy_key
   - cp github_deploy_key ~/.ssh/
   - chmod 600 ~/.ssh/github_deploy_key
-  - git fetch origin gh-pages:gh-pages
-  - git config --global user.email "$GH_USER_EMAIL"
-  - git config --global user.name "$GH_USER_NAME"
-  - git stash -u
-  - git checkout gh-pages
-  - rm resume.pdf
-  - git stash pop
-  - git add resume.pdf
-  - git commit -m "Update Resume.pdf $TRAVIS_JOB_NUMBER $TRAVIS_COMMIT [skip ci]"
-  - git push git@github.com:nunnun/yokou-template.git gh-pages:gh-pages
+  # - git fetch origin gh-pages:gh-pages
+  # - git config --global user.email "$GH_USER_EMAIL"
+  # - git config --global user.name "$GH_USER_NAME"
+  # - git stash -u
+  # - git checkout gh-pages
+  # - rm resume.pdf
+  # - git stash pop
+  # - git add resume.pdf
+  # - git commit -m "Update Resume.pdf $TRAVIS_JOB_NUMBER $TRAVIS_COMMIT [skip ci]"
+  # - git push git@github.com:nunnun/yokou-template.git gh-pages:gh-pages
 
 env:
   global:
