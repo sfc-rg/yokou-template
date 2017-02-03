@@ -21,13 +21,8 @@ script:
   - make
 
 after_success:
-  - |2
-
-    $(npm bin)/set-up-ssh --key "$ncrypted_1f38e5143912_key" \
-                         --iv "$encrypted_1f38e5143912_iv" \
-                         --path-encrypted-key ".travis/github_deploy_key.enc"
-
-    $(npm bin)/update-branch --commands "mkdir public; cp resume.pdf ./public/." \
+  - $(npm bin)/set-up-ssh --key "$ncrypted_1f38e5143912_key" --iv "$encrypted_1f38e5143912_iv"  --path-encrypted-key ".travis/github_deploy_key.enc"
+  - $(npm bin)/update-branch --commands "mkdir public; cp resume.pdf ./public/." \
                              --commit-message "Update website [skip ci]" \
                              --directory "./public" \
                              --distribution-branch "gh-pages" \
