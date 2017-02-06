@@ -22,32 +22,35 @@ mv resume.sty ~/Library/texmf/tex
 PDFをgh-pagesにアップロードしてくれるようになります。
 
 以下の設定を行うと利用することが可能です
-0. travis-ciでアカウント作成  
+
+1. travis-ciでアカウント作成  
 [Travis-CI](https://travis-ci.org/)にアクセスしてアカウントを作成する。
 
-1. travisユーティリティのインストール  
-gitレポジトリディレクトリで以下のコマンドを実行
-```
-$ sudo gem install travis
-$ travis login --auto
-$ travis enable
-```
-2. deploy用SSH鍵の生成
+2. travisユーティリティのインストール  
+gitレポジトリディレクトリで以下のコマンドを実行  
+`$ sudo gem install travis`  
+`$ travis login --auto`  
+`$ travis enable`
+
+3. deploy用SSH鍵の生成
     1. `.travis`ディレクトリに移動
     2. 既存deploy鍵の削除  
     `git rm github_deploy_key.enc`
     3. ssh鍵を生成する  
     `ssh-keygen -t ed25519 -f github_deploy_key -N '' -C <Githubの登録メールアドレス>`
-3. 公開鍵をGithubのdeploy keyとして登録  
-(http://qiita.com/master-of-sugar/items/a9892879f6e9cb9f3c97)この辺を参考にgithub_deploy_key.pubを登録する。  
+
+4. 公開鍵をGithubのdeploy keyとして登録  
+[この辺](http://qiita.com/master-of-sugar/items/a9892879f6e9cb9f3c97)を参考にgithub_deploy_key.pubを登録する。  
 その際Read/Writeの権限を与えること
-4. travisに秘密鍵を暗号化してtravisに登録  
+
+5. travisに秘密鍵を暗号化してtravisに登録  
     1. `$ travis encrypt-file github_deploy_key`  
     この際、以下のようなメッセージが表示される  
     `openssl aes-256-cbc -K $encrypted_1f38e5143912_key -iv $encrypted_1f38e5143912_iv -in github_deploy_key.enc -out github_deploy_key -d`  
     2. そこに含まれる`$encrypted_1f38e5143912_key`と`$encrypted_1f38e5143912_iv`を`.travis.yml`の`deploy`にある`set-up-ssh`行に追加する  
     例: `$(npm bin)/set-up-ssh --key "$encrypted_1f38e5143912_key" --iv "$encrypted_1f38e5143912_iv"  --path-encrypted-key ".travis/github_deploy_key.enc"`
-5. GitHubの情報を登録  
+
+6. GitHubの情報を登録  
 commit時に用いるユーザ名などをtravisに登録する  
     1. 既存コードを削除  
     36行〜38行を削除
