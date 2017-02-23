@@ -1,0 +1,38 @@
+os:
+  - linux
+dist: trusty
+language: node_js
+node_js: stable
+sudo: false
+
+addons:
+  apt:
+    sources:
+      - sourceline: 'ppa:jonathonf/texlive-2016'
+    packages:
+      - texlive
+      - texlive-lang-cjk
+      - texlive-lang-japanese
+      - texlive-latex-extra
+      - dvipsk-ja
+      - xdvik-ja
+      - gv
+      - texlive-fonts-recommended
+      - texlive-fonts-extra
+
+cache:
+  apt: true
+
+before_install:
+  - npm install --save-dev @alrra/travis-scripts
+
+script:
+  - make clean
+  - make
+
+after_success:
+  - $(npm bin)/set-up-ssh --key "$encrypted_1f38e5143912_key" --iv "$encrypted_1f38e5143912_iv"  --path-encrypted-key ".travis/github_deploy_key.enc"
+  - $(npm bin)/update-branch --commands "mkdir public; cp resume.pdf ./public/." --commit-message "Update website [skip ci]" --directory "./public" --distribution-branch "gh-pages" --source-branch "master"
+env:
+  global:
+    secure: aMKkv7827p/gJ9rO5rhVRiHa2AUywwlT9UMGppZss1L3VZDXIWWbSSWokYRQWVyGao2nHMz3Aw3fq6B7BBmCX5TSNkympwEjRFBcc8IhBYjIlqXsItO3WPCFKclZAKima2ForL+5ddxOkV/mlYLb5nl4rCe3pus1rvK58VBWheJ0150FwFBLJHuSXrcSYbzrOjqWDIsMMS00zWqGu/8jx4jXw3F42srGuoiEvi5zeLr+u1K4H3/ny9PmulbfzbygDhLj35XfSN6VB9dxlA0paXo9CaUqY0UiTpgKCdJK//ZaoFHJc2sHw9LJ+BKgC1MZi2Pa7P02CTUcPG4hauEmLFDzNm7gQyaMji6DRnqy0T9GihzRuRPOYbGjIGmKGolOmjzz7Eq9JHGNGoBB1vrM9c8JfhoMoSuZHjXItpDlSvKLCi3doVg8ZVQlcOeEXLi1p1OE6cj0z0hyIyFOaGE0XyalidIgURjbD/19r7UKxPZVCuyHN2+7v9zvib2bogCFuQaMXtyWPywLTl4pE/23d2XeX4FCAuRQFlynIo9g81bFpnkuOVQpcJimPm44Ow66PYUdCgANtZ/1mLq8M+xciwtdjRI1p9uMrHi/fs8UfYzmKPtZKdfUCE/DW8WcE4dz2UixqGelQN/k80ZeZoV7BCKs4aZCFfFHAoZq5pp0HsM=
