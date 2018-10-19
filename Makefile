@@ -1,11 +1,15 @@
 FILENAME = resume
-CC=platex
-DD=dvipdfmx
+PLATEX = platex
+DVIPDFMX = dvipdfmx
+BIBTEX = pbibtex
 
 ${FILENAME}.pdf: ${FILENAME}.dvi
-	$(DD) $<
+	$(DVIPDFMX) ${FILENAME}
 ${FILENAME}.dvi: ${FILENAME}.tex
-	$(CC) $<
+	$(PLATEX) ${FILENAME}
+	$(BIBTEX) ${FILENAME}
+	$(PLATEX) ${FILENAME}
+	$(PLATEX) ${FILENAME}
 
 clean:
-	rm -rf ${FILENAME}.aux ${FILENAME}.dvi ${FILENAME}.log
+	rm -rf ${FILENAME}.aux ${FILENAME}.dvi ${FILENAME}.log ${FILENAME}.blg ${FILENAME}.bbl
